@@ -1,7 +1,8 @@
 name: flutter_tba_info
 description: Request Info
 version: 0.0.1
-homepage:
+authors: Li-Xiang-Lan 519097965@qq.com
+homepage: https://github.com/Li-Xiang-Lan/flutter_tba_info
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
