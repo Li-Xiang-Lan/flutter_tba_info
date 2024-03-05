@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import XCTest
 
-@testable import flutter_tba_info
+@testable import demo_flutter_plugins
 
 // This demonstrates a simple unit test of the Swift portion of this plugin's implementation.
 //
@@ -11,7 +11,7 @@ import XCTest
 class RunnerTests: XCTestCase {
 
   func testGetPlatformVersion() {
-    let plugin = FlutterTbaInfoPlugin()
+    let plugin = DemoFlutterPluginsPlugin()
 
     let call = FlutterMethodCall(methodName: "getPlatformVersion", arguments: [])
 

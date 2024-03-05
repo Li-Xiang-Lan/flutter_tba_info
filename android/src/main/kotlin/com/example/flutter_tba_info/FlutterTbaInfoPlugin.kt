@@ -46,6 +46,18 @@ class FlutterTbaInfoPlugin: FlutterPlugin, MethodCallHandler {
       "getOsCountry"-> result.success(getOsCountry())
       "getOperator"-> result.success(getOperator(mApplicationContext))
       "getDefaultUserAgent"->result.success( WebSettings.getDefaultUserAgent(mApplicationContext))
+      "jumpToEmail"->{
+        call.arguments?.let {
+          if (it is String){
+            runCatching {
+              val intent = Intent(Intent.ACTION_SENDTO)
+              intent.data= Uri.parse("mailto:")
+              intent.putExtra(Intent.EXTRA_EMAIL,it)
+              mApplicationContext.startActivity(intent)
+            }
+          }
+        }
+      }
     }
   }
 

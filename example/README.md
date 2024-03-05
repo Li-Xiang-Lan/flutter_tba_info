@@ -1,6 +1,6 @@
-# flutter_tba_info_example
+# demo_flutter_plugins_example
 
-Demonstrates how to use the flutter_tba_info plugin.
+Demonstrates how to use the demo_flutter_plugins plugin.
 
 ## Getting Started
 

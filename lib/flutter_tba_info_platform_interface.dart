@@ -39,4 +39,7 @@ abstract class FlutterTbaInfoPlatform extends PlatformInterface {
   Future<String> getOsCountry()=>_instance.getDistinctId();
   Future<String> getOperator()=>_instance.getDistinctId();
   Future<String> getDefaultUserAgent()=>_instance.getDefaultUserAgent();
+  Future<String> getIdfa()=>_instance.getIdfa();
+  Future<String> getIdfv()=>_instance.getIdfv();
+  Future<void> jumpToEmail(String email)=>_instance.jumpToEmail(email);
 }

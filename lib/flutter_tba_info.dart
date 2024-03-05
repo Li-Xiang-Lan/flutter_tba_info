@@ -1,4 +1,3 @@
-
 import 'flutter_tba_info_platform_interface.dart';
 
 class FlutterTbaInfo {
@@ -57,5 +56,14 @@ class FlutterTbaInfo {
   }
   Future<String> getDefaultUserAgent(){
     return FlutterTbaInfoPlatform.instance.getDefaultUserAgent();
+  }
+  Future<String> getIdfa(){
+    return FlutterTbaInfoPlatform.instance.getIdfa();
+  }
+  Future<String> getIdfv(){
+    return FlutterTbaInfoPlatform.instance.getIdfv();
+  }
+  Future<void> jumpToEmail(String email){
+    return FlutterTbaInfoPlatform.instance.jumpToEmail(email);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -60,6 +62,9 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
   }
   @override
   Future<String> getAndroidId()async{
+    if(Platform.isIOS){
+      return "";
+    }
     return await methodChannel.invokeMethod("getAndroidId");
   }
   @override
@@ -77,5 +82,26 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
   @override
   Future<String> getDefaultUserAgent()async{
     return await methodChannel.invokeMethod("getDefaultUserAgent");
+  }
+
+  @override
+  Future<String> getIdfa()async{
+    if(Platform.isAndroid){
+      return "";
+    }
+    return await methodChannel.invokeMethod("getIdfa");
+  }
+
+  @override
+  Future<String> getIdfv()async{
+    if(Platform.isAndroid){
+      return "";
+    }
+    return await methodChannel.invokeMethod("getIdfv");
+  }
+
+  @override
+  Future<void> jumpToEmail(String email) async{
+    await methodChannel.invokeMethod("jumpToEmail",{"email":email});
   }
 }
