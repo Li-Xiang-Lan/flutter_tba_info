@@ -1,10 +1,3 @@
-//
-//  TbaHelper.swift
-//  FlutterSupport
-//
-//  Created by brushTalk on 04/03/2024.
-//
-
 import Foundation
 import UIKit
 import SystemConfiguration

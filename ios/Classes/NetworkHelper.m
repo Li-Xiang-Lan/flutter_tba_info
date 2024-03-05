@@ -1,10 +1,3 @@
-//
-//  NetworkHelper.m
-//  FlutterSupport
-//
-//  Created by brushTalk on 04/03/2024.
-//
-
 #import "NetworkHelper.h"
 
 @implementation NetworkHelper
