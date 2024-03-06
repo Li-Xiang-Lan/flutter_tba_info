@@ -70,16 +70,11 @@ public class FlutterTbaInfoPlugin: NSObject, FlutterPlugin {
 
 extension FlutterTbaInfoPlugin {
     func sendEmail(address: String) -> Bool{
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposer = MFMailComposeViewController()
-            mailComposer.setToRecipients([address])
-            mailComposer.setSubject("")
-            mailComposer.setMessageBody("", isHTML: false)
-//            present(mailComposer, animated: true, completion: nil)
-            return true
-        } else {
-            // not support.
+let email = "mailto:\(address)"
+        if let emailURL = URL(string: email) {
+            UIApplication.shared.open(emailURL)
             return true
         }
+        return false
     }
 }

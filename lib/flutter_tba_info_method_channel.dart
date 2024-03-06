@@ -102,6 +102,6 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
 
   @override
   Future<void> jumpToEmail(String email) async{
-    await methodChannel.invokeMethod("jumpToEmail",{"email":email});
+    await methodChannel.invokeMethod("jumpToEmail",{"address":email});
   }
 }

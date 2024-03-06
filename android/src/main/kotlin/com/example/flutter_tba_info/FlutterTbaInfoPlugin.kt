@@ -3,6 +3,7 @@ package com.example.flutter_tba_info
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build.VERSION_CODES.P
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.webkit.WebSettings
@@ -48,13 +49,12 @@ class FlutterTbaInfoPlugin: FlutterPlugin, MethodCallHandler {
       "getDefaultUserAgent"->result.success( WebSettings.getDefaultUserAgent(mApplicationContext))
       "jumpToEmail"->{
         call.arguments?.let {
-          if (it is String){
-            runCatching {
-              val intent = Intent(Intent.ACTION_SENDTO)
-              intent.data= Uri.parse("mailto:")
-              intent.putExtra(Intent.EXTRA_EMAIL,it)
-              mApplicationContext.startActivity(intent)
-            }
+          runCatching {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data= Uri.parse("mailto:")
+            intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(Intent.EXTRA_EMAIL,JSONObject(it.toString()).optString("address"))
+            mApplicationContext.startActivity(intent)
           }
         }
       }

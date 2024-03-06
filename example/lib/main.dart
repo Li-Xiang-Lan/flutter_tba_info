@@ -29,7 +29,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $dis'),
+          child: InkWell(
+            onTap: (){
+
+            },
+            child: Text('Running on: $dis'),
+          ),
         ),
       ),
     );
