@@ -128,9 +128,10 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
     if(Platform.isAndroid){
       await methodChannel.invokeMethod("connectReferrer");
     }else{
+      var build = await getBuild();
       var nowTime = DateTime.now().millisecondsSinceEpoch;
       var map={
-        "build":"build/12",
+        "build":build,
         "referrer_click_timestamp_seconds":nowTime,
         "install_begin_timestamp_seconds":nowTime,
         "google_play_instant":false,
@@ -149,5 +150,9 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
   @override
   Future<void> addObserver(ReferrerObserver observer) async{
     _observerList.add(observer);
+  }
+  @override
+  Future<String> getBuild()async{
+    return await methodChannel.invokeMethod("getBuild");
   }
 }

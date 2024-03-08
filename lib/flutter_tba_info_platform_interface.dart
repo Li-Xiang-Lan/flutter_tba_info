@@ -47,4 +47,5 @@ abstract class FlutterTbaInfoPlatform extends PlatformInterface {
   Future<void> addObserver(ReferrerObserver observer) async {
     await _instance.addObserver(observer);
   }
+  Future<String> getBuild()=>_instance.getBuild();
 }

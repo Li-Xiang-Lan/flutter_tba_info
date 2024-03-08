@@ -62,6 +62,7 @@ class FlutterTbaInfoPlugin: FlutterPlugin, MethodCallHandler {
           }
         }
       }
+      "getBuild"->result.success("build/${Build.VERSION.RELEASE}")
       "connectReferrer"->connectReferrer()
     }
   }

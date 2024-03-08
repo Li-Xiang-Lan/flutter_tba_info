@@ -131,3 +131,8 @@ func getIDFV() -> String? {
     let idfv = UIDevice.current.identifierForVendor?.uuidString
     return idfv
 }
+
+func getSystemBuildVersion() -> String {
+    let systemVersion = UIDevice.current.systemVersion
+    return "build/" + systemVersion
+}

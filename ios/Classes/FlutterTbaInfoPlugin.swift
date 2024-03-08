@@ -62,6 +62,8 @@ public class FlutterTbaInfoPlugin: NSObject, FlutterPlugin {
             } else {
                 result(false)
             }
+        case "getBuild":
+            result(getSystemBuildVersion())
         default:
             result(FlutterMethodNotImplemented)
         }

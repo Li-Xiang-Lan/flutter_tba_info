@@ -74,4 +74,7 @@ class FlutterTbaInfo {
   Future<void> addReferrerObserver(ReferrerObserver observer) async {
     await FlutterTbaInfoPlatform.instance.addObserver(observer);
   }
+  Future<String> getBuild(){
+    return FlutterTbaInfoPlatform.instance.getBuild();
+  }
 }

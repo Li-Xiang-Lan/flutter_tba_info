@@ -47,7 +47,14 @@ class _MyAppState extends State<MyApp> {
                   FlutterTbaInfo.instance.connectReferrer();
                 },
                 child: const Text('connectReferrer'),
-              )
+              ),
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: ()async{
+                  print(await FlutterTbaInfo.instance.getBuild());
+                },
+                child: const Text('getBuild'),
+              ),
             ],
           ),
         ),
