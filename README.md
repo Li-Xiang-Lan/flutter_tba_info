@@ -2,14 +2,44 @@
 
 A new Flutter project.
 
-## Getting Started
+## Get started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### Set Proguard
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Create `proguard-rules.pro` file into your android->app, add content in this file
+```dart
+-keep public class com.android.installreferrer.**{ *; }
+```
+
+Quote proguard-rules.pro into your app->`build.gradle`
+```dart
+buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+```
+
+### Examples
+
+1.addReferrerObserver
+```dart
+FlutterTbaInfo.instance.addReferrerObserver(_observer);
+final ReferrerObserver _observer=ReferrerObserver(
+onSuccess: (map){
+print(map);
+},
+onError: (){
+
+}
+);
+```
+2.connectReferrer
+```dart
+FlutterTbaInfo.instance.connectReferrer();
+```
+
+
 

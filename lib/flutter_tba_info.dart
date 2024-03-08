@@ -1,3 +1,5 @@
+import 'package:flutter_tba_info/referrer_observer.dart';
+
 import 'flutter_tba_info_platform_interface.dart';
 
 class FlutterTbaInfo {
@@ -65,5 +67,11 @@ class FlutterTbaInfo {
   }
   Future<void> jumpToEmail(String email){
     return FlutterTbaInfoPlatform.instance.jumpToEmail(email);
+  }
+  Future<void> connectReferrer(){
+    return FlutterTbaInfoPlatform.instance.connectReferrer();
+  }
+  Future<void> addReferrerObserver(ReferrerObserver observer) async {
+    await FlutterTbaInfoPlatform.instance.addObserver(observer);
   }
 }

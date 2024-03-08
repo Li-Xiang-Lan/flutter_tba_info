@@ -1,3 +1,4 @@
+import 'package:flutter_tba_info/referrer_observer.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_tba_info_method_channel.dart';
@@ -42,4 +43,8 @@ abstract class FlutterTbaInfoPlatform extends PlatformInterface {
   Future<String> getIdfa()=>_instance.getIdfa();
   Future<String> getIdfv()=>_instance.getIdfv();
   Future<void> jumpToEmail(String email)=>_instance.jumpToEmail(email);
+  Future<void> connectReferrer()=>_instance.connectReferrer();
+  Future<void> addObserver(ReferrerObserver observer) async {
+    await _instance.addObserver(observer);
+  }
 }

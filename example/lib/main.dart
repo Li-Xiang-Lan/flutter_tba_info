@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
+import 'package:flutter_tba_info/referrer_observer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,16 +30,39 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: InkWell(
-            onTap: (){
-
-            },
-            child: Text('Running on: $dis'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Running on: $dis'),
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: (){
+                  FlutterTbaInfo.instance.addReferrerObserver(_observer);
+                },
+                child: const Text('add ReferrerObserver'),
+              ),
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: (){
+                  FlutterTbaInfo.instance.connectReferrer();
+                },
+                child: const Text('connectReferrer'),
+              )
+            ],
           ),
         ),
       ),
     );
   }
+
+  final ReferrerObserver _observer=ReferrerObserver(
+    onSuccess: (map){
+      print(map);
+    },
+    onError: (){
+
+    }
+  );
 
   _request()async{
     dis=await FlutterTbaInfo.instance.getDistinctId();

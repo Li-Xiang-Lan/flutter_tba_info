@@ -2,15 +2,33 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tba_info/referrer_observer.dart';
 
 import 'flutter_tba_info_platform_interface.dart';
 
 /// An implementation of [FlutterTbaInfoPlatform] that uses method channels.
 class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
-  /// The method channel used to interact with the native platform.
+  final List<ReferrerObserver> _observerList = [];
+
   @visibleForTesting
   final methodChannel = const MethodChannel('flutter_tba_info');
 
+  MethodChannelFlutterTbaInfo() {
+    methodChannel.setMethodCallHandler((call) async {
+      switch(call.method){
+        case "connectReferrerFail":
+          for (var observer in _observerList) {
+            observer.onError != null ? observer.onError!() : false;
+          }
+          break;
+        case "connectReferrerSuccess":
+          for (var observer in _observerList) {
+            observer.onSuccess != null ? observer.onSuccess!(call.arguments) : false;
+          }
+          break;
+      }
+    });
+  }
 
   @override
   Future<String> getDistinctId()async{
@@ -103,5 +121,33 @@ class MethodChannelFlutterTbaInfo extends FlutterTbaInfoPlatform {
   @override
   Future<void> jumpToEmail(String email) async{
     await methodChannel.invokeMethod("jumpToEmail",{"address":email});
+  }
+
+  @override
+  Future<void> connectReferrer() async{
+    if(Platform.isAndroid){
+      await methodChannel.invokeMethod("connectReferrer");
+    }else{
+      var nowTime = DateTime.now().millisecondsSinceEpoch;
+      var map={
+        "build":"build/12",
+        "referrer_click_timestamp_seconds":nowTime,
+        "install_begin_timestamp_seconds":nowTime,
+        "google_play_instant":false,
+        "install_version":"",
+        "last_update_seconds":nowTime,
+        "install_first_seconds":nowTime,
+        "referrer_url":"",
+        "install_begin_timestamp_server_seconds":nowTime,
+        "referrer_click_timestamp_server_seconds":nowTime,
+      };
+      for (var observer in _observerList) {
+        observer.onSuccess != null ? observer.onSuccess!(map) : false;
+      }
+    }
+  }
+  @override
+  Future<void> addObserver(ReferrerObserver observer) async{
+    _observerList.add(observer);
   }
 }
