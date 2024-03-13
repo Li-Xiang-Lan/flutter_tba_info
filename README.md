@@ -22,24 +22,4 @@ buildTypes {
     }
 ```
 
-### Examples
-
-1.addReferrerObserver
-```dart
-FlutterTbaInfo.instance.addReferrerObserver(_observer);
-final ReferrerObserver _observer=ReferrerObserver(
-onSuccess: (map){
-print(map);
-},
-onError: (){
-
-}
-);
-```
-2.connectReferrer
-```dart
-FlutterTbaInfo.instance.connectReferrer();
-```
-
-
 

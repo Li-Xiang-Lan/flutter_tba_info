@@ -1,4 +1,6 @@
-import 'package:flutter_tba_info/referrer_observer.dart';
+import 'dart:io';
+
+import 'package:android_play_install_referrer/android_play_install_referrer.dart';
 
 import 'flutter_tba_info_platform_interface.dart';
 
@@ -68,13 +70,47 @@ class FlutterTbaInfo {
   Future<void> jumpToEmail(String email){
     return FlutterTbaInfoPlatform.instance.jumpToEmail(email);
   }
-  Future<void> connectReferrer(){
-    return FlutterTbaInfoPlatform.instance.connectReferrer();
-  }
-  Future<void> addReferrerObserver(ReferrerObserver observer) async {
-    await FlutterTbaInfoPlatform.instance.addObserver(observer);
-  }
   Future<String> getBuild(){
     return FlutterTbaInfoPlatform.instance.getBuild();
+  }
+
+  Future<Map> getReferrerMap()async{
+    var build = await getBuild();
+    var userAgent=await getDefaultUserAgent();
+    if(Platform.isIOS){
+      var nowTime = DateTime.now().millisecondsSinceEpoch;
+      var map={
+        "build":build,
+        "referrer_click_timestamp_seconds":nowTime,
+        "install_begin_timestamp_seconds":nowTime,
+        "google_play_instant":false,
+        "user_agent":userAgent,
+        "install_version":"",
+        "last_update_seconds":nowTime,
+        "install_first_seconds":nowTime,
+        "referrer_url":"",
+        "install_begin_timestamp_server_seconds":nowTime,
+        "referrer_click_timestamp_server_seconds":nowTime,
+      };
+      return map;
+    }else{
+      var referrerDetails = await AndroidPlayInstallReferrer.installReferrer;
+      var firstInstallTime = await FlutterTbaInfoPlatform.instance.getFirstInstallTime();
+      var lastUpdateTime = await FlutterTbaInfoPlatform.instance.getLastUpdateTime();
+      var map={
+        "build":build,
+        "referrer_click_timestamp_seconds":referrerDetails.referrerClickTimestampSeconds,
+        "install_begin_timestamp_seconds":referrerDetails.installBeginTimestampSeconds,
+        "google_play_instant":referrerDetails.googlePlayInstantParam,
+        "user_agent":userAgent,
+        "install_version":referrerDetails.installVersion??"",
+        "last_update_seconds":lastUpdateTime,
+        "install_first_seconds":firstInstallTime,
+        "referrer_url":referrerDetails.installReferrer??"",
+        "install_begin_timestamp_server_seconds":referrerDetails.installBeginTimestampServerSeconds,
+        "referrer_click_timestamp_server_seconds":referrerDetails.referrerClickTimestampServerSeconds,
+      };
+      return map;
+    }
   }
 }

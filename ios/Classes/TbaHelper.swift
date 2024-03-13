@@ -119,13 +119,10 @@ func getUserAgent(completion: @escaping (String?) -> Void) {
 }
 
 func getIDFA() -> String? {
-    guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
-        return nil
-    }
-    
     let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
     return idfa
 }
+
 
 func getIDFV() -> String? {
     let idfv = UIDevice.current.identifierForVendor?.uuidString

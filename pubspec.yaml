@@ -1,6 +1,6 @@
 name: flutter_tba_info
 description: Request Info
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/Li-Xiang-Lan/flutter_tba_info
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  android_play_install_referrer: 0.3.0
 
 dev_dependencies:
   flutter_test:
